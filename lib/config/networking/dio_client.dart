@@ -14,8 +14,8 @@ class DioClient {
   final List<Interceptor>? interceptors;
 
   DioClient(
-    this.baseUrl,
     this._dio, {
+    this.baseUrl = 'https://fakestoreapi.com/products',
     this.interceptors,
   }) {
     _dio
