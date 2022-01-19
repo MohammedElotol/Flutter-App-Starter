@@ -1,7 +1,8 @@
-import 'dart:io';
+import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_app_starter/core/error/exceptions.dart';
 
 const _defaultConnectTimeout = Duration.millisecondsPerMinute;
 const _defaultReceiveTimeout = Duration.millisecondsPerMinute;
@@ -15,7 +16,7 @@ class DioClient {
 
   DioClient(
     this._dio, {
-    this.baseUrl = 'https://fakestoreapi.com/products',
+    required this.baseUrl,
     this.interceptors,
   }) {
     _dio
@@ -43,18 +44,20 @@ class DioClient {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      final response = await _dio.get(
+      final response = await _dio
+          .get(
         uri,
         queryParameters: queryParameters,
         options: options,
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
-      );
+      )
+          .onError((dynamic error, stackTrace) {
+        // print(stackTrace.toString());
+        throw ServerException();
+      });
+      json.decode(response.data.toString());
       return response.data;
-    } on SocketException catch (e) {
-      throw SocketException(e.toString());
-    } on FormatException catch (_) {
-      throw const FormatException("Unable to process the data");
     } catch (e) {
       rethrow;
     }
@@ -80,8 +83,6 @@ class DioClient {
         onReceiveProgress: onReceiveProgress,
       );
       return response.data;
-    } on FormatException catch (_) {
-      throw const FormatException("Unable to process the data");
     } catch (e) {
       rethrow;
     }
@@ -107,8 +108,6 @@ class DioClient {
         onReceiveProgress: onReceiveProgress,
       );
       return response.data;
-    } on FormatException catch (_) {
-      throw const FormatException("Unable to process the data");
     } catch (e) {
       rethrow;
     }
@@ -130,8 +129,6 @@ class DioClient {
         cancelToken: cancelToken,
       );
       return response.data;
-    } on FormatException catch (_) {
-      throw const FormatException("Unable to process the data");
     } catch (e) {
       rethrow;
     }

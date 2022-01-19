@@ -1,4 +1,4 @@
-import 'package:flutter_app_starter/config/error/failure.dart';
+import 'package:flutter_app_starter/core/error/failure.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:flutter/foundation.dart';

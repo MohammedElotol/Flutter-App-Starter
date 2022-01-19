@@ -1,6 +1,6 @@
-import 'package:flutter_app_starter/config/states/result.dart';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_app_starter/core/states/result.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'use_case.freezed.dart';

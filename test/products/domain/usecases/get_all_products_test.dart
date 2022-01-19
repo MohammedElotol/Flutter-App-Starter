@@ -1,5 +1,5 @@
-import 'package:flutter_app_starter/config/states/result.dart';
 import 'package:flutter_app_starter/core/domain/usecases/use_case.dart';
+import 'package:flutter_app_starter/core/states/result.dart';
 import 'package:flutter_app_starter/products/domain/entities/product.dart';
 import 'package:flutter_app_starter/products/domain/repositories/products_repository.dart';
 import 'package:flutter_app_starter/products/domain/usecases/get_all_products.dart';
@@ -20,7 +20,7 @@ main() async {
   });
 
   final tProducts = [
-    Product(1, 'title', 100, 'description', 'category', 'image')
+    const Product(1, 'title', 100, 'description', 'category', 'image')
   ];
 
   test('should get all products form the repository', () async {

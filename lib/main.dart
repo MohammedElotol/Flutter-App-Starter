@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_starter/products/presentation/pages/products_page.dart';
+import 'package:flutter_app_starter/products/presentation/presenters/providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final sharedPreferences = await SharedPreferences.getInstance();
+  runApp(ProviderScope(overrides: [
+    sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -14,9 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Container(),
+      home: const ProductsPage(),
     );
   }
 }
-
-
